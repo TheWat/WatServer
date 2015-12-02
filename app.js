@@ -10,5 +10,5 @@ app.get("/",function(req,res){
 	count++;
 })
 
-app.listen(818);
+app.listen(3000);
 console.log("Server Started");
