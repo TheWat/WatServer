@@ -31,6 +31,7 @@ server.on('message', function (message, remote) {
 	Store in mongo database
 
     ****************************************************************************/
+    console.log(message);
     message = message.split(" ");
     //TODO- store numbers in binary
     var row  = new Snapshot({
@@ -42,6 +43,7 @@ server.on('message', function (message, remote) {
     row.save(function(err,row){
     	if(err) return console.error(err);
     })
+
 
 
 });
