@@ -20,7 +20,7 @@ var dSchema = mongoose.Schema({
 	,voltage: Number
 });
 
-var snapshot = mongoose.model('Snapshot',dSchema);
+var Snapshot = mongoose.model('Snapshot',dSchema);
 
 server.on('message', function (message, remote) {
     console.log(remote.address + ':' + remote.port +' - ' + message);
@@ -31,18 +31,18 @@ server.on('message', function (message, remote) {
 	Store in mongo database
 
     ****************************************************************************/
-    console.log(message);
-    message = message.split(" ");
-    //TODO- store numbers in binary
-    var row  = new Snapshot({
-    	time:message[0]
-    	,power:message[1]
-    	,current:message[2]
-    	,voltage:message[3]
-    });
-    row.save(function(err,row){
-    	if(err) return console.error(err);
-    })
+	var str = String(message);
+	str = str.split(" ");
+	//TODO- store numbers in binary
+	var row  = new Snapshot({
+		time:str[0]
+		,power:str[1]
+		,current:str[2]
+		,voltage:str[3]
+	});
+	row.save(function(err,row){
+		if(err) return console.error(err);
+	});
 
 
 
