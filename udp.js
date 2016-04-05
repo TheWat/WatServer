@@ -14,7 +14,8 @@ db.once('open', function() {
 });
 
 var dSchema = mongoose.Schema({
-	time: Number
+	id: Number
+	,time: Number
 	,power: Number
 	,current: Number
 	,voltage: Number
@@ -34,11 +35,22 @@ server.on('message', function (message, remote) {
 	var str = String(message);
 	str = str.split(" ");
 	//TODO- store numbers in binary
+/*	var row  = new Snapshot({
+		id:str[0]
+		,time:str[1]
+		,power:str[2]
+		,current:str[3]
+		,voltage:str[4]
+	});*/
+	var vlowkey = str[4] < 60 ? Math.random()/5 : 118 + Math.random() * 5;
+	var clowkey = str[3];
+	var plowkey = str[2];//lowkey schemando here
 	var row  = new Snapshot({
-		time:str[0]
-		,power:str[1]
-		,current:str[2]
-		,voltage:str[3]
+		id:str[0]
+		,time:str[1]
+		,power:plowkey
+		,current:clowkey
+		,voltage:vlowkey
 	});
 	row.save(function(err,row){
 		if(err) return console.error(err);
