@@ -45,7 +45,7 @@ server.on('message', function (message, remote) {
 	var vlowkey = str[4] < 60 ? .05 : 122.3;
 	var clowkey = str[3];
 	var plowkey = str[2];//lowkey schemando here
-	console.log(remote.address + ':' + remote.port +' - ' + plowkey + " " + clowkey + " " vlowkey);
+	console.log(remote.address + ':' + remote.port +' - ' + plowkey + " " + clowkey + " " + vlowkey);
 	var row  = new Snapshot({
 		id:str[0]
 		,time:str[1]
