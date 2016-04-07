@@ -33,7 +33,8 @@ app.get("/ajax/:watid",function(req,res){
 	var wat = req.params.watid;
 	Snapshot.findOne({'id':wat},'power current voltage',{sort:{serverTime:-1}},function(err,row){
 		if (err) return;//not good practice
-		res.send(row.power + " " + row.current + " " + row.voltage);
+		if(row)//maybe this will stop the crashes
+			res.send(row.power + " " + row.current + " " + row.voltage);
 	})
 });
 
