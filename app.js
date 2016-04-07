@@ -21,10 +21,10 @@ var Snapshot = mongoose.model('Snapshot',dSchema);
 
 //https://jsfiddle.net/api/post/library/pure/ 
 var count = 0;
-app.get("/test",function(req,res)){
+app.get("/test",function(req,res){
 	res.send("yo so this works apparently");
 	console.log("just a test");
-}
+});
 app.get("/",function(req,res){
 	res.sendFile("basicUI.html");
 	console.log("rendering");
