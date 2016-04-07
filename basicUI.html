@@ -34,7 +34,7 @@ writeValues(wat,0,0,0);
 var updateValues = function(){
 	$.get("/ajax/"+String(wat),function(data){
 		var x = data.split(" ");
-		writeValues(wat,str[0],str[1],str[2]);
+		writeValues(wat,x[0],x[1],x[2]);
 	});
 }
 var intervalID = setInterval(updateValues,500);
