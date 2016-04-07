@@ -1,0 +1,42 @@
+<html>
+<h2>
+	Power Consumption for Wat <span id="number"></span>
+</h2>
+<div>
+<span>Power: </span><span id="power"></span><span> Watts</span>
+</div>
+<div>
+<span>Current: </span><span id="current"></span><span> Amps</span>
+</div>
+<div>
+<span>Voltage: </span><span id="volts"></span><span> Volts</span>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+<script>
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+var writeValues = function(id,power,current,voltage){
+	$("#number").html(id);
+	$("#power").html(power);
+	$("#current").html(current);
+	$("#volts").html(voltage);
+}
+var wat = getQueryVariable("id");
+writeValues(wat,0,0,0);
+var updateValues = function(){
+	$.get("/ajax/"+String(wat),function(data){
+		var x = data.split(" ");
+		writeValues(wat,str[0],str[1],str[2]);
+	});
+}
+var intervalID = setInterval(updateValues,500);
+</script>
+</html>
