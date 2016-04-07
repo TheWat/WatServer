@@ -9,14 +9,30 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
 	console.log("Mongo Connected");
 });
+var dSchema = mongoose.Schema({
+	id: Number
+	,clienttime: Number
+	,serverTime: Number
+	,power: Number
+	,current: Number
+	,voltage: Number
+});
+var Snapshot = mongoose.model('Snapshot',dSchema);
+
 //https://jsfiddle.net/api/post/library/pure/ 
 var count = 0;
 
 app.get("/",function(req,res){
-	res.send("Ayy yo I got your request");
-	console.log("Recieved Request "+String(count));
-	count++;
-})
+	res.sendFile("basicUI.html");
+	console.log("rendering");
+});
+app.get("/ajax/:watid",function(req,res){
+	var wat = req.params.watid;
+	Snapshot.findOne({'id':wat},'power current voltage',{sort:{serverTime:-1}},function(err,row){
+		if (err) return handleError(err);
+		res.send(row.power + " " + row.current + " " + row.voltage);
+	})
+});
 
 app.listen(80);
 console.log("Server Started");

@@ -15,7 +15,8 @@ db.once('open', function() {
 
 var dSchema = mongoose.Schema({
 	id: Number
-	,time: Number
+	,clienttime: Number
+	,serverTime: Number
 	,power: Number
 	,current: Number
 	,voltage: Number
@@ -45,10 +46,12 @@ server.on('message', function (message, remote) {
 	var vlowkey = str[4];
 	var clowkey = str[3];
 	var plowkey = str[2];//lowkey schemando here
+	var d = new Date();
 	console.log(remote.address + ':' + remote.port +' - ' + plowkey + " " + clowkey + " " + vlowkey);
 	var row  = new Snapshot({
 		id:str[0]
-		,time:str[1]
+		,clientTime:str[1]
+		,serverTime:d.getTime()
 		,power:plowkey
 		,current:clowkey
 		,voltage:vlowkey
