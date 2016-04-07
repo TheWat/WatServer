@@ -26,7 +26,7 @@ app.get("/test",function(req,res){
 	console.log("just a test");
 });
 app.get("/",function(req,res){
-	res.sendFile("basicUI.html");
+	res.sendFile("basicUI.html",{root: __dirname});
 	console.log("rendering");
 });
 app.get("/ajax/:watid",function(req,res){
