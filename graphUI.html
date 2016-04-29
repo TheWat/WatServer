@@ -20,7 +20,7 @@
        }
        return(false);
 }
-var wat = getQueryVariable("id");
+      var wat = getQueryVariable("id");
       // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
@@ -31,9 +31,10 @@ var wat = getQueryVariable("id");
       // instantiates the pie chart, passes in the data and
       // draws it.
       function drawChart() {
-
+        console.log("here!!");
         // Create the data table.
         $.get("/grajax/"+String(wat),function(dataTable){
+          console.log(dataTable);
           var data = new google.visualization.DataTable();
         var data = google.visualization.arrayToDataTable(dataTable);
 
