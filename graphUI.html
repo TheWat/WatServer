@@ -16,7 +16,7 @@
       function drawChart() {
 
         // Create the data table.
-        $.get("/ajax/"+String(wat),function(dataTable){
+        $.get("/grajax/"+String(wat),function(dataTable){
           var data = new google.visualization.DataTable();
         var data = google.visualization.arrayToDataTable(dataTable);
 
