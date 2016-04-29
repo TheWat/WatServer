@@ -47,11 +47,18 @@ app.get("/grajax/:watid",function(req,res){
 		find({'id': wat}).
 		limit(20).
 		sort({serverTime:-1}).
-		select({power:1,'_id':0}).
+		select({serverTime:1,power:1,'_id':0}).
 		exec(function(err,data){
 			if (err) return;//not good practice
-			//console.log(data);
-			res.send(data);
+			console.log(data);
+			var dataTable = [];
+			dataTable.push(['Time','Power(W)']);
+			for(var i=data.length-1;i>=0;i--){
+				dataTable.push([data[i].serverTime,data[i].power]);
+			}
+			console.log(dataTable);
+			res.send(dataTable);
+
 		});
 });
 
