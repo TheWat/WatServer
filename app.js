@@ -47,10 +47,11 @@ app.get("/grajax/:watid",function(req,res){
 		find({'id': wat}).
 		limit(20).
 		sort({serverTime:-1}).
-		select({power:1}).
+		select({power:1,'_id':0}).
 		exec(function(err,data){
 			if (err) return;//not good practice
-			console.log(data);
+			//console.log(data);
+			res.send(data);
 		});
 });
 
