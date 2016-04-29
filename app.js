@@ -52,7 +52,6 @@ app.get("/grajax/:watid",function(req,res){
 			if (err) return;//not good practice
 			console.log(data);
 		});
-	})
 });
 
 app.listen(3000);
