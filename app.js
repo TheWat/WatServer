@@ -80,16 +80,15 @@ app.get("/grajax/:watid/:detail",function(req,res){
 						,{type:'number',label:'voltage'}]
 				,'rows':rows
 			};
-			console.log(dataTable);
-			res.send(dataTable);
-			}
+			
 			/*console.log(data);
 			var dataTable = [];
 			dataTable.push(['Time','Power(W)']);
 			for(var i=data.length-1;i>=0;i--){
 				dataTable.push([data[i].serverTime,data[i].power]);
 			}*/
-			
+			console.log(dataTable);
+			res.send(dataTable);
 
 		});
 });
