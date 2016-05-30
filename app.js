@@ -10,6 +10,7 @@ db.once('open', function() {
 	console.log("Mongo Connected");
 });
 var dSchema = mongoose.Schema({
+	
 	id: Number
 	,clienttime: Number
 	,serverTime: Number
@@ -41,21 +42,52 @@ app.get("/ajax/:watid",function(req,res){
 			res.send(row.power + " " + row.current + " " + row.voltage);
 	})
 });
-app.get("/grajax/:watid",function(req,res){
+app.get("/grajax/:watid/:detail",function(req,res){
 	var wat = req.params.watid;
+	var detail = req.params.detail || 1;
+	console.log("detail",detail)
 	Snapshot.
 		find({'id': wat}).
-		limit(20).
+		limit(20*detail).
 		sort({serverTime:-1}).
-		select({serverTime:1,power:1,'_id':0}).
+		select({serverTime:1,power:1,current:1,voltage:1,'_id':0}).
 		exec(function(err,data){
 			if (err) return;//not good practice
-			console.log(data);
+			var rows = [];
+			for(var i=0;i<data.length/detail;i++){
+				var avCurrent = 0;
+				var avPower = 0;
+				var avVoltage = 0;
+				var samples = Math.min(detail,data.length-detail*i);
+				for(var j = 0; j < samples; j++){
+					var index = detail*i+j;
+					avPower += data[index].power;
+					avCurrent += data[index].current;
+					avVoltage += data[index].voltage;
+				}
+				var datDate = new Date();
+				datDate.setTime(data[detail*i].time);
+
+				rows.push({'c'}:[{'v':datDate.getDate()},'f':datDate.toGMTString()}
+									,{'v',avPower/samples}
+									,{'v',avCurrent/samples}
+									,{'v',avVoltage/samples}])
+			}
+			var dataTable = {
+				'cols':[{type:'date',label:'time'}
+						,{type:'number',label:'power'}
+						,{type:'number',label:'current'}
+						,{type:'number',label:'voltage'}]
+				'rows':rows
+			}
+
+			}
+			/*console.log(data);
 			var dataTable = [];
 			dataTable.push(['Time','Power(W)']);
 			for(var i=data.length-1;i>=0;i--){
 				dataTable.push([data[i].serverTime,data[i].power]);
-			}
+			}*/
 			console.log(dataTable);
 			res.send(dataTable);
 
