@@ -49,11 +49,11 @@
         //you can manipulate a view more, but it's readonly
         var view = new google.visualization.DataView(data);
         if(lazy==0)
-          view.hideColumns([1,2]);
+          view.hideColumns([2,3]);
         if(lazy==1)
-          view.hideColumns([0,2]);
+          view.hideColumns([1,3]);
         if(lazy==2)
-          view.hideColumns([1,2]);
+          view.hideColumns([2,3]);
 
         var options = {
           title: 'Consumption information for Wat ' + wat,
