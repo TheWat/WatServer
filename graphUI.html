@@ -26,6 +26,7 @@
 }
 
       var wat = getQueryVariable("id");
+      var detail = getQueryVariable("detail");
       // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
@@ -39,7 +40,7 @@
         //reference for actual data table
 
        
-      $.get("/grajax/"+String(wat),function(dataTable){
+      $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
           console.log(dataTable);
         var data = google.visualization.arrayToDataTable(dataTable);*/
 
