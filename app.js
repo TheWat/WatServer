@@ -69,9 +69,9 @@ app.get("/grajax/:watid/:detail",function(req,res){
 				datDate.setTime(data[detail*i].time);
 
 				rows.push({'c':[{'v':datDate.getDate(),'f':datDate.toGMTString()}
-									,{'v',avPower/samples}
-									,{'v',avCurrent/samples}
-									,{'v',avVoltage/samples}]})
+									,{'v':avPower/samples}
+									,{'v':avCurrent/samples}
+									,{'v':avVoltage/samples}]})
 			}
 			var dataTable = {
 				'cols':[{type:'date',label:'time'}
