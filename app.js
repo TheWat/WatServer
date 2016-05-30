@@ -66,7 +66,7 @@ app.get("/grajax/:watid/:detail",function(req,res){
 					avVoltage += data[index].voltage;
 				}
 				var datDate = new Date();
-				datDate.setTime(data[detail*i].time);
+				datDate.setTime(data[detail*i].serverTime);
 
 				rows.push({'c':[{'v':datDate.getDate(),'f':datDate.toGMTString()}
 									,{'v':avPower/samples}
