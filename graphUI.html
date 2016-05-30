@@ -46,12 +46,14 @@
           console.log(dataTable);
        //   console.log(dataTable.rows[0].c[0].v.getTime());
         var data = new google.visualization.DataTable(dataTable);
+        //you can manipulate a view more, but it's readonly
+        var view = new google.visualization.DataView(data);
         if(lazy==0)
-          data.hideColumns([1,2]);
+          view.hideColumns([1,2]);
         if(lazy==1)
-          data.hideColumns([0,2]);
+          view.hideColumns([0,2]);
         if(lazy==2)
-          data.hideColumns([1,2]);
+          view.hideColumns([1,2]);
 
         var options = {
           title: 'Consumption information for Wat ' + wat,
@@ -62,7 +64,7 @@
         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
         // Instantiate and draw our chart, passing in some options.
-        chart.draw(data, options);
+        chart.draw(view, options);
        });
         
       }
