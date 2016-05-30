@@ -35,10 +35,16 @@
       function drawChart() {
         console.log("here!!");
         // Create the data table.
-        $.get("/grajax/"+String(wat),function(dataTable){
+        //https://developers.google.com/chart/interactive/docs/reference#methods
+        //reference for actual data table
+
+       
+      $.get("/grajax/"+String(wat),function(dataTable){
           console.log(dataTable);
-          var data = new google.visualization.DataTable();
-        var data = google.visualization.arrayToDataTable(dataTable);
+        var data = google.visualization.arrayToDataTable(dataTable);*/
+
+        
+
 
         var options = {
           title: 'Consumption information for Wat ' + wat,
