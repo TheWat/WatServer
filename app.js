@@ -78,7 +78,7 @@ app.get("/grajax/:watid/:detail",function(req,res){
 						,{type:'number',label:'power'}
 						,{type:'number',label:'current'}
 						,{type:'number',label:'voltage'}]
-				'rows':rows
+				,'rows':rows
 			}
 
 			}
