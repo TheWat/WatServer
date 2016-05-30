@@ -67,7 +67,7 @@ app.get("/grajax/:watid/:detail",function(req,res){
 				}
 				var datDate = new Date();
 				datDate.setTime(data[detail*i].serverTime);
-				var datString = "Date("+datDate.getYear()+","+datDate.getMonth()+","+datDate.getDate()+","+datDate.getHours()+","+datDate.getMinutes()+","+datDate.getSeconds()")";
+				var datString = "Date("+datDate.getYear()+","+datDate.getMonth()+","+datDate.getDate()+","+datDate.getHours()+","+datDate.getMinutes()+","+datDate.getSeconds()+")";
 
 				rows.push({'c':[{'v':datString,'f':datDate.toGMTString()}
 									,{'v':avPower/samples}
