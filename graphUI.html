@@ -30,7 +30,7 @@
       //0 for power,1 for current, 2 for voltage
       var lazy = getQueryVariable("type");
       // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
+      google.charts.load('current', {'packages':['line']});
 
       // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
@@ -58,10 +58,14 @@
         var options = {
           title: 'Consumption information for Wat ' + wat,
           curveType: 'none',
-          legend: { position: 'bottom' }
+          legend: { position: 'bottom' },
+          hAxis{
+            title:"Time",
+            gridlines:{count:21}
+          }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.Line(document.getElementById('chart_div'));
 
         // Instantiate and draw our chart, passing in some options.
         chart.draw(view, options);
