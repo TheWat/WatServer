@@ -100,6 +100,27 @@
         chart.draw(view, options);
        });*/
         var wrapper;
+var update = function(){
+  //wrapper.setDataSourceUrl("/grajax/"+String(wat)+"/"+String(detail));
+  if(type==0){
+    wrapper.setOption("title","Wat " + wat + " Power Consumption");
+    wrapper.setView({"view":{"columns":[0,1]}});
+  }
+  if(type==1){
+    wrapper.setOption("title","Wat " + wat + " Current Consumption");
+    wrapper.setView({"view":{"columns":[0,2]}});
+  }
+  if(type==2){
+    wrapper.setOption("title","Wat " + wat + " Voltage Consumption");
+    wrapper.setView({"view":{"columns":[0,3]}});
+  }
+  $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
+    wrapper.setDataTable(dataTable);
+    wrapper.draw();
+  }
+  );
+}
+
 function drawVisualization() {
 
   // Draw a column chart
@@ -121,26 +142,8 @@ function drawVisualization() {
   update();
 
 }
-var update = function(){
-  //wrapper.setDataSourceUrl("/grajax/"+String(wat)+"/"+String(detail));
-  if(type==0){
-    wrapper.setOption("title","Wat " + wat + " Power Consumption");
-    wrapper.setView({"view":{"columns":[0,1]}});
-  }
-  if(type==1){
-    wrapper.setOption("title","Wat " + wat + " Current Consumption");
-    wrapper.setView({"view":{"columns":[0,2]}});
-  }
-  if(type==2){
-    wrapper.setOption("title","Wat " + wat + " Voltage Consumption");
-    wrapper.setView({"view":{"columns":[0,3]}});
-  }
-  $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
-    wrapper.setDataTable(dataTable);
+window.setInterval(update,2000);
 
-  }
-  wrapper.draw();
-}
     </script>
   </body>
 </html>
