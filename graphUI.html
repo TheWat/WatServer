@@ -5,16 +5,19 @@
 
   <body>
     <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
-    <select id="valsel">
+    <select id="valsel" style="float:right;position:relative">
     <option value="0">Power</option>
     <option value="1">Current</option>
     <option value="2">Voltage</option>
     </select>
+    <div id="chart_div"></div>
+
+    <div style="width:30%; margin:auto">
     <button id="decten">&lt&lt</button>
     <button id="decone">&lt</button>
     <button id="incone">&gt</button>
     <button id="incten">&gt&gt</button>
+    </div>
     <!--Load the AJAX API-->
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
