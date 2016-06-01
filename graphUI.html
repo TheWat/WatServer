@@ -88,7 +88,8 @@ function drawVisualization() {
   // Draw a column chart
   wrapper = new google.visualization.ChartWrapper({
     chartType: 'LineChart',
-    dataSourceURL:"/grajax/"+String(wat)+"/"+String(detail),
+    dataSourceUrl:"/grajax/"+String(wat)+"/"+String(detail),
+    refreshInterval:2,
     options: {
           title: 'Consumption information for Wat ' + wat
           ,curveType: 'function'
@@ -103,6 +104,19 @@ function drawVisualization() {
   });
 
 
+  wrapper.draw();
+}
+var updateType = function(type){
+  wrapper.setDataSourceUrl("/grajax/"+String(wat)+"/"+String(type));
+  if(type==0){
+    wrapper.setOption("title":"Wat " + wat + " Power Consumption");
+  }
+  if(type==1){
+    wrapper.setOption("title":"Wat " + wat + " Current Consumption");
+  }
+  if(type==2){
+    wrapper.setOption("title":"Wat " + wat + " Voltage Consumption");
+  }
   wrapper.draw();
 }
     </script>
