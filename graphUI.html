@@ -19,22 +19,53 @@
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+var wrapper;
+var update = function(){
+  //wrapper.setDataSourceUrl("/grajax/"+String(wat)+"/"+String(detail));
+  if(type==0){
+    wrapper.setOption("title","Wat " + wat + " Power Consumption");
+    wrapper.setView({"columns":[0,1]});
+  }
+  if(type==1){
+    wrapper.setOption("title","Wat " + wat + " Current Consumption");
+    wrapper.setView({"columns":[0,2]});
+  }
+  if(type==2){
+    wrapper.setOption("title","Wat " + wat + " Voltage Consumption");
+    wrapper.setView({"columns":[0,3]});
+  }
+  
+
+  $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
+    wrapper.setDataTable(dataTable);
+    console.log(type);
+  console.log(wrapper.getView());
+    wrapper.draw();
+  }
+  );
+}
+
     var type = 0;
     var detail = 1;
     $("#valsel").change(function(){
       type = Number($(this).val());
+      update();
     });
     $("#decten").click(function(){
       detail = Math.max(1,detail-10);
+      update();
     });
     $("#decone").click(function(){
       detail = Math.max(1,detail-1);
+      update();
     });
     $("#incten").click(function(){
       detail += 10;
+      update();
     });
     $("#incone").click(function(){
       detail += 1;
+      update();
     })
       /**
        * @param  {String} variable - name of GET variable that you want
@@ -61,69 +92,6 @@
       // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawVisualization);
 
-      /*
-      function drawChart() {
-        // Create the data table.
-        //https://developers.google.com/chart/interactive/docs/reference#methods
-        //reference for actual data table
-      
-
-       
-      $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
-          console.log(dataTable);
-       //   console.log(dataTable.rows[0].c[0].v.getTime());
-        var data = new google.visualization.DataTable(dataTable);
-        //you can manipulate a view more, but it's readonly
-        var view = new google.visualization.DataView(data);
-        lazy = $("#valsel").val();
-        if(lazy==0)
-          view.hideColumns([2,3]);
-        if(lazy==1)
-          view.hideColumns([1,3]);
-        if(lazy==2)
-          view.hideColumns([1,2]);
-
-        var options = {
-          title: 'Consumption information for Wat ' + wat
-          ,curveType: 'function'
-          ,legend: { position: 'bottom' }
-          ,pointSize:5
-          ,hAxis:{
-            title:"Time",
-            gridlines:{count:21}
-          }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-        // Instantiate and draw our chart, passing in some options.
-        chart.draw(view, options);
-       });*/
-        var wrapper;
-var update = function(){
-  //wrapper.setDataSourceUrl("/grajax/"+String(wat)+"/"+String(detail));
-  if(type==0){
-    wrapper.setOption("title","Wat " + wat + " Power Consumption");
-    wrapper.setView({"columns":[0,1]});
-  }
-  if(type==1){
-    wrapper.setOption("title","Wat " + wat + " Current Consumption");
-    wrapper.setView({"columns":[0,2]});
-  }
-  if(type==2){
-    wrapper.setOption("title","Wat " + wat + " Voltage Consumption");
-    wrapper.setView({"columns":[0,3]});
-  }
-  
-
-  $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
-    wrapper.setDataTable(dataTable);
-    console.log(type);
-  console.log(wrapper.getView());
-    wrapper.draw();
-  }
-  );
-}
 
 function drawVisualization() {
 
