@@ -19,6 +19,23 @@
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+    var type = 0;
+    var detail = 1;
+    $("#valsel").change(function(){
+      type = Number($(this).val());
+    });
+    $("#decten").click(function(){
+      detail = Math.max(1,detail-10);
+    });
+    $("#decone").click(function(){
+      detail = Math.max(1,detail-1);
+    });
+    $("#incten").click(function(){
+      detail += 10;
+    });
+    $("#incone").click(function(){
+      detail += 1;
+    })
       /**
        * @param  {String} variable - name of GET variable that you want
        * @return {String} Value of the specified variable
@@ -35,7 +52,7 @@
 }
 
       var wat = getQueryVariable("id");
-      var detail = getQueryVariable("detail");
+     // var detail = getQueryVariable("detail");
       //0 for power,1 for current, 2 for voltage
       var lazy = getQueryVariable("type");
       // Load the Visualization API and the corechart package.
@@ -88,8 +105,6 @@ function drawVisualization() {
   // Draw a column chart
   wrapper = new google.visualization.ChartWrapper({
     chartType: 'LineChart',
-    dataSourceUrl:"/grajax/"+String(wat)+"/"+String(detail),
-    refreshInterval:2,
     options: {
           title: 'Consumption information for Wat ' + wat
           ,curveType: 'function'
@@ -103,19 +118,26 @@ function drawVisualization() {
     containerId: 'chart_div'
   });
 
+  update();
 
-  wrapper.draw();
 }
-var updateType = function(type){
-  wrapper.setDataSourceUrl("/grajax/"+String(wat)+"/"+String(type));
+var update = function(){
+  //wrapper.setDataSourceUrl("/grajax/"+String(wat)+"/"+String(detail));
   if(type==0){
     wrapper.setOption("title","Wat " + wat + " Power Consumption");
+    wrapper.setView({"view":{"columns":[0,1]}});
   }
   if(type==1){
     wrapper.setOption("title","Wat " + wat + " Current Consumption");
+    wrapper.setView({"view":{"columns":[0,2]}});
   }
   if(type==2){
     wrapper.setOption("title","Wat " + wat + " Voltage Consumption");
+    wrapper.setView({"view":{"columns":[0,3]}});
+  }
+  $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
+    wrapper.setDataTable(dataTable);
+
   }
   wrapper.draw();
 }
