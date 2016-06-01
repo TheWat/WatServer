@@ -6,6 +6,15 @@
   <body>
     <!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
+    <select id="valsel">
+    <option value="0">Power</option>
+    <option value="1">Current</option>
+    <option value="2">Voltage</option>
+    </select>
+    <button id="decten">&lt&lt</button>
+    <button id="decone">&lt</button>
+    <button id="incone">&gt</button>
+    <button id="incten">&gt&gt</button>
     <!--Load the AJAX API-->
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -35,11 +44,12 @@
       // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
 
+      /*
       function drawChart() {
-        console.log("here!!");
         // Create the data table.
         //https://developers.google.com/chart/interactive/docs/reference#methods
         //reference for actual data table
+      
 
        
       $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
@@ -48,6 +58,7 @@
         var data = new google.visualization.DataTable(dataTable);
         //you can manipulate a view more, but it's readonly
         var view = new google.visualization.DataView(data);
+        lazy = $("#valsel").val();
         if(lazy==0)
           view.hideColumns([2,3]);
         if(lazy==1)
@@ -56,10 +67,11 @@
           view.hideColumns([1,2]);
 
         var options = {
-          title: 'Consumption information for Wat ' + wat,
-          curveType: 'none',
-          legend: { position: 'bottom' },
-          hAxis:{
+          title: 'Consumption information for Wat ' + wat
+          ,curveType: 'function'
+          ,legend: { position: 'bottom' }
+          ,pointSize:5
+          ,hAxis:{
             title:"Time",
             gridlines:{count:21}
           }
@@ -69,8 +81,21 @@
 
         // Instantiate and draw our chart, passing in some options.
         chart.draw(view, options);
-       });
-        
+       });*/
+        var wrapper;
+function drawVisualization() {
+
+  // Draw a column chart
+  wrapper = new google.visualization.ChartWrapper({
+    chartType: 'LineChart',
+    dataSourceURL:"/grajax/"+String(wat)+"/"+String(detail),
+    options: {'title': 'Power Consumption of Wat '+String(wat)},
+    containerId: 'chart_div'
+  });
+
+
+  wrapper.draw();
+}
       }
     </script>
   </body>
