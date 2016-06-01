@@ -114,8 +114,12 @@ var update = function(){
     wrapper.setOption("title","Wat " + wat + " Voltage Consumption");
     wrapper.setView({"view":{"columns":[0,3]}});
   }
+  
+
   $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
     wrapper.setDataTable(dataTable);
+    console.log(type);
+  console.log(wrapper.getView());
     wrapper.draw();
   }
   );
@@ -128,9 +132,9 @@ function drawVisualization() {
     chartType: 'LineChart',
     options: {
           title: 'Consumption information for Wat ' + wat
-          ,curveType: 'function'
+          ,curveType: 'none'
           ,legend: { position: 'bottom' }
-          ,pointSize:5
+          ,pointSize:2
           ,hAxis:{
             title:"Time",
             gridlines:{count:21}
@@ -142,7 +146,7 @@ function drawVisualization() {
   update();
 
 }
-window.setInterval(update,2000);
+window.setInterval(update,5000);
 
     </script>
   </body>
