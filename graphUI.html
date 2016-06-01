@@ -4,12 +4,14 @@
 
   <body style="width:85%">
     <!--Div that will hold the pie chart-->
-    <select id="valsel" style="float:right;position:relative;z-index:3;">
+    <!--<select id="valsel" style="float:right;position:relative;z-index:3;">
     <option value="0">Power</option>
     <option value="1">Current</option>
     <option value="2">Voltage</option>
-    </select>
+    </select>-->
     <div id="chart_div"></div>
+    <div id="cur_div"></div>
+    <div id="volt_div"></div>
 
     <div style="width:17%; margin:auto">
     <button id="decten">&lt&lt</button>
@@ -21,10 +23,10 @@
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-var wrapper;
+var wrapper,wrapperb,wrapperc;
 var update = function(){
   //wrapper.setDataSourceUrl("/grajax/"+String(wat)+"/"+String(detail));
-  if(type==0){
+  /*if(type==0){
     wrapper.setOption("title","Wat " + wat + " Power Consumption");
     wrapper.setView({"columns":[0,1]});
   }
@@ -35,13 +37,13 @@ var update = function(){
   if(type==2){
     wrapper.setOption("title","Wat " + wat + " Voltage Consumption");
     wrapper.setView({"columns":[0,3]});
-  }
+  }*/
   
 
   $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
     wrapper.setDataTable(dataTable);
-    console.log(type);
-  console.log(wrapper.getView());
+    wrapperb.setDataTable(dataTable);
+    wrapperb.setDataTable(dataTable);
     wrapper.draw();
   }
   );
@@ -49,10 +51,10 @@ var update = function(){
 
     var type = 0;
     var detail = 1;
-    $("#valsel").change(function(){
+    /*$("#valsel").change(function(){
       type = Number($(this).val());
       update();
-    });
+    });*/
     $("#decten").click(function(){
       detail = Math.max(1,detail-10);
       update();
@@ -87,7 +89,6 @@ var update = function(){
       var wat = getQueryVariable("id");
      // var detail = getQueryVariable("detail");
       //0 for power,1 for current, 2 for voltage
-      var lazy = getQueryVariable("type");
       // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
@@ -101,7 +102,7 @@ function drawVisualization() {
   wrapper = new google.visualization.ChartWrapper({
     chartType: 'LineChart',
     options: {
-          title: 'Consumption information for Wat ' + wat
+          title: "title","Wat " + wat + " Power Consumption"
           ,curveType: 'none'
           ,legend: { position: 'bottom' }
           ,pointSize:2
@@ -109,9 +110,25 @@ function drawVisualization() {
             title:"Time"
             ,gridlines:{count:21}
           }
+          ,vAxis:{
+            title:"Power(Watts)"
+          }
         },
     containerId: 'chart_div'
   });
+  wrapperb = wrapper.clone();
+  wrapperc = wrapper.clone();
+  wrapper.setView({"columns":[0,1]});
+  wrapperb.setView({"columns":[0,2]});
+  wrapperc.setView({"columns":[0,3]});
+  wrapperb.setOption("title","Wat " + wat + " Current Consumption");
+  wrapperc.setOption("title","Wat " + wat + " Voltage Consumption");
+  wrapperb.setOption("vAxis":"{'title':'Current(Amps)'}");
+  wrapperc.setOption("vAxis":"{'title':'Voltage(Volts)'}");
+  wrapperb.setContainerId("cur_div");
+  wrapperc.setContainerId("volt_div");
+
+
 
   update();
 
