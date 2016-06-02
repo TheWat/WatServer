@@ -28,12 +28,13 @@ var updateConsumption = function(){
   $.get("/ajax/"+String(wat),function(data){
     var x = data.split(" ");
     var pow = x[0];
+    var t = Number(x[3]);
     if(lastTime==0){
-      lastTime = x[3];
+      lastTime = t;
     }
     else{
-      consumption+=(x[3]-lastTime)*pow/(1000*60*60);
-      lastTime = x[3];
+      consumption+=(t-lastTime)*pow/(1000*60*60);
+      lastTime = t;
       $("#consumption").html(consumption + " kWh");
     }
 });
