@@ -36,10 +36,10 @@ app.get("/graph",function(req,res){
 });
 app.get("/ajax/:watid",function(req,res){
 	var wat = req.params.watid;
-	Snapshot.findOne({'id':wat},'power current voltage',{sort:{serverTime:-1}},function(err,row){
+	Snapshot.findOne({'id':wat},'serverTime power current voltage',{sort:{serverTime:-1}},function(err,row){
 		if (err) return;//not good practice
 		if(row)//maybe this will stop the crashes
-			res.send(row.power + " " + row.current + " " + row.voltage);
+			res.send(row.power + " " + row.current + " " + row.voltage + " " + serverTime);
 	})
 });
 app.get("/grajax/:watid/:detail",function(req,res){

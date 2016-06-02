@@ -5,7 +5,7 @@
   <body style="width:85%">
     <!--Div that will hold the pie chart-->
     <div id="container" style="float:right;position:relative;z-index:3;">
-    <div id="consumption"></div>
+    <div id="consumption">0 kWh</div>
     </div>
     <div id="chart_div"></div>
     <div id="cur_div"></div>
@@ -24,13 +24,27 @@
 var wrapper,wrapperb,wrapperc;
 var consumption = 0;
 var lastTime = 0;
+var updateConsumption = function(){
+  $.get("/ajax/"+String(wat),function(data){
+    var x = data.split(" ");
+    var pow = x[0];
+    if(lastTime==0){
+      lastTime = x[3];
+    }
+    else{
+      consumption+=(x[3]-lastTime)*pow/(1000*60*60);
+      lastTime = x[3];
+      $("#consumption").html(consumption + " kWh");
+    }
+});
+}
 var update = function(){
 
   $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
     var t = dataTable.rows[0].c;
     if(lastTime==0)
       lastTime=t[0].v;
-    console.log(eval(lastTime).getTime());
+    console.log(eval("new "+lastTime).getTime());
     wrapper.setDataTable(dataTable);
     wrapperb.setDataTable(dataTable);
     wrapperc.setDataTable(dataTable);
@@ -152,6 +166,7 @@ function drawVisualization() {
 
 }
 window.setInterval(update,500);
+window.setInterval(updateConsumption,5000);
 
     </script>
   </body>
