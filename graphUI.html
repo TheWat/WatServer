@@ -29,7 +29,7 @@ var update = function(){
   $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
     var t = dataTable.rows[0].c;
     if(lastTime==0)
-      lastTime=c[0].v;
+      lastTime=t[0].v;
     console.log(eval(lastTime).getTime());
     wrapper.setDataTable(dataTable);
     wrapperb.setDataTable(dataTable);
