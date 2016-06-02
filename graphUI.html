@@ -118,8 +118,40 @@ function drawVisualization() {
         },
     containerId: 'chart_div'
   });
-  wrapperb = wrapper.clone();
-  wrapperc = wrapper.clone();
+  wrapperb = new google.visualization.ChartWrapper({
+    chartType: 'LineChart',
+    options: {
+          title: "Wat " + wat + " Current Consumption"
+          ,curveType: 'none'
+          ,legend: { position: 'bottom' }
+          ,pointSize:2
+          ,hAxis:{
+            title:"Time"
+            ,gridlines:{count:21}
+          }
+          ,vAxis:{
+            title:"Power(Watts)"
+          }
+        },
+    containerId: 'chart_div'
+  });
+  wrapperc = new google.visualization.ChartWrapper({
+    chartType: 'LineChart',
+    options: {
+          title: "Wat " + wat + " Voltage Consumption"
+          ,curveType: 'none'
+          ,legend: { position: 'bottom' }
+          ,pointSize:2
+          ,hAxis:{
+            title:"Time"
+            ,gridlines:{count:21}
+          }
+          ,vAxis:{
+            title:"Power(Watts)"
+          }
+        },
+    containerId: 'chart_div'
+  });
   wrapper.setView({"columns":[0,1]});
   wrapperb.setView({"columns":[0,2]});
   wrapperc.setView({"columns":[0,3]});
