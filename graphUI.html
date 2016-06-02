@@ -4,11 +4,9 @@
 
   <body style="width:85%">
     <!--Div that will hold the pie chart-->
-    <!--<select id="valsel" style="float:right;position:relative;z-index:3;">
-    <option value="0">Power</option>
-    <option value="1">Current</option>
-    <option value="2">Voltage</option>
-    </select>-->
+    <div id="container" style="float:right;position:relative;z-index:3;">
+    <div id="consumption"></div>
+    </div>
     <div id="chart_div"></div>
     <div id="cur_div"></div>
     <div id="volt_div"></div>
@@ -24,23 +22,15 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 var wrapper,wrapperb,wrapperc;
+var consumption = 0;
+var lastTime = 0;
 var update = function(){
-  //wrapper.setDataSourceUrl("/grajax/"+String(wat)+"/"+String(detail));
-  /*if(type==0){
-    wrapper.setOption("title","Wat " + wat + " Power Consumption");
-    wrapper.setView({"columns":[0,1]});
-  }
-  if(type==1){
-    wrapper.setOption("title","Wat " + wat + " Current Consumption");
-    wrapper.setView({"columns":[0,2]});
-  }
-  if(type==2){
-    wrapper.setOption("title","Wat " + wat + " Voltage Consumption");
-    wrapper.setView({"columns":[0,3]});
-  }*/
-  
 
   $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
+    var t = dataTable.rows[0].c;
+    if(lastTime==0)
+      lastTime=c[0].v;
+    console.log(eval(lastTime).getTime());
     wrapper.setDataTable(dataTable);
     wrapperb.setDataTable(dataTable);
     wrapperc.setDataTable(dataTable);
@@ -104,7 +94,7 @@ function drawVisualization() {
   wrapper = new google.visualization.ChartWrapper({
     chartType: 'LineChart',
     options: {
-          title: "Wat " + wat + " Power Consumption"
+          title: "Wat " + wat + " Power"
           ,curveType: 'none'
           ,legend: { position: 'bottom' }
           ,pointSize:2
@@ -121,7 +111,7 @@ function drawVisualization() {
   wrapperb = new google.visualization.ChartWrapper({
     chartType: 'LineChart',
     options: {
-          title: "Wat " + wat + " Current Consumption"
+          title: "Wat " + wat + " Current"
           ,curveType: 'none'
           ,legend: { position: 'bottom' }
           ,pointSize:2
@@ -161,7 +151,7 @@ function drawVisualization() {
   update();
 
 }
-window.setInterval(update,5000);
+window.setInterval(update,500);
 
     </script>
   </body>
