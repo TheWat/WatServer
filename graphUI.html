@@ -2,12 +2,13 @@
   <head>
   </head>
 
-  <body style="width:85%">
+  <body>
     <!--Div that will hold the pie chart-->
     <div id="container" style="float:right;position:relative;z-index:3;">
     <div id="consumption">0 kWh</div>
-    <div id="powpow"></div>
+    <div id="powpow">0 Watts</div>
     </div>
+    <div style="width:85%">
     <div id="chart_div"></div>
     <div id="cur_div"></div>
     <div id="volt_div"></div>
@@ -18,9 +19,10 @@
     <button id="incone">&gt</button>
     <button id="incten">&gt&gt</button>
     </div>
+    </div>
     <style>
 #container{
-  font-size:2.5em;
+  font-size:1.5em;
   font-style:bold;
 }
     </style>
@@ -43,7 +45,7 @@ var updateConsumption = function(){
       consumption+=(t-lastTime)*pow/(1000*60*60);
       lastTime = t;
       $("#consumption").html(consumption + " kWh");
-      $("#powpow").html(pow+ " Watts");
+      $("#powpow").html(pow + " Watts");
     }
 });
 }
