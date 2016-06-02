@@ -43,6 +43,7 @@ server.on('message', function (message, remote) {
 		,current:str[3]
 		,voltage:str[4]
 	});*/
+	console.log(str[4]);
 	var vlowkey = str[4] > 61 ? 121.2 : .02;
 	var clowkey = str[3];
 	var plowkey = Math.max(str[2]-5,0);//lowkey schemando here
