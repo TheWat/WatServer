@@ -48,14 +48,10 @@ var updateConsumption = function(){
       $("#powpow").html(pow + " Watts");
     }
 });
-}
+};
 var update = function(){
 
   $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
-    var t = dataTable.rows[0].c;
-    if(lastTime==0)
-      lastTime=t[0].v;
-    console.log(eval("new "+lastTime).getTime());
     wrapper.setDataTable(dataTable);
     wrapperb.setDataTable(dataTable);
     wrapperc.setDataTable(dataTable);
