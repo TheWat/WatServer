@@ -45,7 +45,7 @@ server.on('message', function (message, remote) {
 	});*/
 	var vlowkey = str[4] > 61 ? 121.2 : .02;
 	var clowkey = str[3];
-	var plowkey = Math.max(str[2]-10,0);//lowkey schemando here
+	var plowkey = Math.max(str[2]-5,0);//lowkey schemando here
 	var d = new Date();
 	console.log(str[2]);
 	console.log(remote.address + ':' + remote.port +' - ' + plowkey + " " + clowkey + " " + vlowkey);
