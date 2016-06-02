@@ -27,8 +27,9 @@ var lastTime = 0;
 var updateConsumption = function(){
   $.get("/ajax/"+String(wat),function(data){
     var x = data.split(" ");
-    var pow = x[0];
+    var pow = Number(x[0]);
     var t = Number(x[3]);
+    console.log(pow,t);
     if(lastTime==0){
       lastTime = t;
     }
@@ -42,10 +43,10 @@ var updateConsumption = function(){
 var update = function(){
 
   $.get("/grajax/"+String(wat)+"/"+String(detail),function(dataTable){
-    var t = dataTable.rows[0].c;
+    /*var t = dataTable.rows[0].c;
     if(lastTime==0)
       lastTime=t[0].v;
-    console.log(eval("new "+lastTime).getTime());
+    console.log(eval("new "+lastTime).getTime());*/
     wrapper.setDataTable(dataTable);
     wrapperb.setDataTable(dataTable);
     wrapperc.setDataTable(dataTable);
