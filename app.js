@@ -39,9 +39,10 @@ app.get("/ajax/:watid",function(req,res){
 	Snapshot.findOne({'id':wat},'serverTime power current voltage',{sort:{serverTime:-1}},function(err,row){
 		if (err) return;//not good practice
 		if(row)//maybe this will stop the crashes
-			res.send(row.power + " " + row.current + " " + row.voltage + " " + serverTime);
+			res.send(row.power + " " + row.current + " " + row.voltage + " " + row.serverTime);
 	})
 });
+
 app.get("/grajax/:watid/:detail",function(req,res){
 	var wat = req.params.watid;
 	var detail = req.params.detail || 1;
